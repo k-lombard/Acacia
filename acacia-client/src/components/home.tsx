@@ -26,12 +26,12 @@ export default function Acacia(this: any) {
     dispatch(setLoading(true))  
   }
 
-
-
   return (
     <div>
       <h1>Acacia</h1>
       <Button variant="contained" color="primary" onClick={purgeStore}>New Images</Button>
+      <div style={{width: '80vw', height: '80vh'}}>
+      </div>
     </div>
   )
 }  
