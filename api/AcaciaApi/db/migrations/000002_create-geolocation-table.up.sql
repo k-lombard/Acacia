@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS geolocation(id int GENERATED ALWAYS AS IDENTITY, sentry_id uuid, accuracy float(32) NULL, latitude float(32) NOT NULL, longitude float(32) NOT NULL, timestamp TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (id), CONSTRAINT fk_sentry FOREIGN KEY (sentry_id) REFERENCES sentries(id));
