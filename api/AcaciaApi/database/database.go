@@ -22,8 +22,6 @@ var ErrNoMatch = fmt.Errorf("Error: no matching table record")
 
 var ErrDuplicate = fmt.Errorf("Error: table record already exists")
 
-var ErrSameUser = fmt.Errorf("Error: two users are the same")
-
 func InitializeDatabase(username, password, database string) (Database, error) {
 	db := Database{}
 	dsn := "postgres://user:password@db/acacia?sslmode=disable"
