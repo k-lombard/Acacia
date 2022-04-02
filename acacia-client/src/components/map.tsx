@@ -1,33 +1,19 @@
 /// app.js
 import React from 'react';
-import DeckGL from '@deck.gl/react';
-import {LineLayer} from '@deck.gl/layers';
-import {StaticMap} from 'react-map-gl';
+import DeckGL from 'deck.gl';
+import { Map } from "react-map-gl";
 
-// Set your mapbox access token here
-const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoibWlydmluZSIsImEiOiJjbDFpNXhva2MxbHAxM2pxaXEwdjEzMmw3In0.cmMa2dAsNf_4TiUjpD9HiQ';
-
-
-// Viewport settings
-const INITIAL_VIEW_STATE = {
-  longitude: 33.772163578,
-  latitude: -84.390165106,
-  zoom: 13,
-  pitch: 0,
-  bearing: 0
-};
-
-// Data to be used by the LineLayer
-const data = [
-  {sourcePosition: [-122.41669, 37.7853], targetPosition: [-122.41669, 37.781]}
-];
-
-export default function Map() {
+export default function LayeredMap() {
   return (
-    <DeckGL
-      initialViewState={INITIAL_VIEW_STATE}
-      controller={true} >
-      <LineLayer id="line-layer" data={data} />
-    </DeckGL>
-  );
+    <Map
+        initialViewState={{
+          longitude: -100,
+          latitude: 40,
+          zoom: 3.5
+        }}
+        style={{width: '100vw', height: '100vh'}}
+        mapStyle="mapbox://styles/mapbox/streets-v9"
+        mapboxAccessToken="pk.eyJ1IjoibWlydmluZSIsImEiOiJjbDFpNXhva2MxbHAxM2pxaXEwdjEzMmw3In0.cmMa2dAsNf_4TiUjpD9HiQ"
+      />
+  )
 }

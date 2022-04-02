@@ -6,6 +6,7 @@ import { RootState } from '../store/store'
 import { PURGE } from 'redux-persist'
 import Button from '@mui/material/Button'
 import { setLoading } from '../store/Acacia-actions'
+import LayeredMap from './map';
 
 export default function Acacia(this: any) {
   const forceUpdate = useForceUpdate()
@@ -32,6 +33,7 @@ export default function Acacia(this: any) {
     <div>
       <h1>Acacia</h1>
       <Button variant="contained" color="primary" onClick={purgeStore}>New Images</Button>
+      <LayeredMap />
     </div>
   )
 }  
