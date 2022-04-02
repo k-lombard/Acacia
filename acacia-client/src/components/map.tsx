@@ -50,7 +50,6 @@ export default function LayeredMap({data}) {
       getTooltip={({object}) => object && `${object.name}\n${object.address}`} 
     >
       <Map
-          style={{width: '100vw', height: '100vh'}}
           mapStyle="mapbox://styles/mapbox/streets-v9"
           mapboxAccessToken={MAPBOX_ACCESS_TOKEN}
         />

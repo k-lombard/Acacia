@@ -6,7 +6,6 @@ import { RootState } from '../store/store'
 import { PURGE } from 'redux-persist'
 import Button from '@mui/material/Button'
 import { setLoading } from '../store/Acacia-actions'
-import LayeredMap from './map';
 
 export default function Acacia(this: any) {
   const forceUpdate = useForceUpdate()
@@ -27,13 +26,12 @@ export default function Acacia(this: any) {
     dispatch(setLoading(true))  
   }
 
-  const data = [{name: 'Klaus College of Computing', address: '266 Ferst Dr NW, Atlanta, GA 30332', exits: 4214, coordinates: [ -84.39579759751776,33.77715462850155]}];
-
   return (
     <div>
       <h1>Acacia</h1>
       <Button variant="contained" color="primary" onClick={purgeStore}>New Images</Button>
-      <LayeredMap data={data}/>
+      <div style={{width: '80vw', height: '80vh'}}>
+      </div>
     </div>
   )
 }  
