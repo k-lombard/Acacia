@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -13,11 +12,10 @@ import (
 
 func (r routes) geolocationpositions(rg *gin.RouterGroup) {
 	rg.GET("/", getAllGeolocationPositions)
-	rg.GET("/caregivers", getCaregiverGeolocationPositions)
 	rg.POST("/", addGeolocationPosition)
-	rg.GET("/:userid", getGeolocationPositionByUserId)
-	rg.PUT("/:userid", updateGeolocationPosition)
-	rg.DELETE("/:userid", deleteGeolocationPosition)
+	rg.GET("/:id", getGeolocationPositionBySentryId)
+	rg.PUT("/:id", updateGeolocationPosition)
+	rg.DELETE("/:id", deleteGeolocationPosition)
 }
 
 func addGeolocationPosition(c *gin.Context) {
@@ -44,19 +42,9 @@ func getAllGeolocationPositions(c *gin.Context) {
 	c.JSON(http.StatusOK, locs)
 }
 
-func getCaregiverGeolocationPositions(c *gin.Context) {
-	locs, err := dbInstance.GetCaregiverLocations()
-	if err != nil {
-		fmt.Println(err.Error())
-		c.JSON(http.StatusInternalServerError, err)
-		return
-	}
-	c.JSON(http.StatusOK, locs)
-}
-
-func getGeolocationPositionByUserId(c *gin.Context) {
-	userID := uuid.MustParse(c.Param("userid"))
-	loc, err := dbInstance.GetGeolocationPositionByUserId(userID)
+func getGeolocationPositionBySentryId(c *gin.Context) {
+	sentryID := uuid.MustParse(c.Param("id"))
+	loc, err := dbInstance.GetGeolocationPositionBySentryId(sentryID)
 	if err != nil {
 		if err == database.ErrNoMatch {
 			c.JSON(http.StatusNotFound, "Error: Resource not found")
@@ -69,8 +57,8 @@ func getGeolocationPositionByUserId(c *gin.Context) {
 }
 
 func deleteGeolocationPosition(c *gin.Context) {
-	userId := uuid.MustParse(c.Param("userid"))
-	err := dbInstance.DeleteGeolocationPosition(userId)
+	sentryId := uuid.MustParse(c.Param("id"))
+	err := dbInstance.DeleteGeolocationPosition(sentryId)
 	if err != nil {
 		if err == database.ErrNoMatch {
 			c.JSON(http.StatusNotFound, "Error: Resource not found")
@@ -79,17 +67,17 @@ func deleteGeolocationPosition(c *gin.Context) {
 		}
 		return
 	}
-	c.JSON(http.StatusOK, userId)
+	c.JSON(http.StatusOK, sentryId)
 }
 func updateGeolocationPosition(c *gin.Context) {
 	r := c.Request
-	userId := uuid.MustParse(c.Param("userid"))
+	sentryId := uuid.MustParse(c.Param("id"))
 	locData := models.GeolocationPosition{}
 	if err := render.Bind(r, &locData); err != nil {
 		c.JSON(http.StatusBadRequest, "Error: Bad request")
 		return
 	}
-	loc, err := dbInstance.UpdateGeolocationPosition(userId, locData)
+	loc, err := dbInstance.UpdateGeolocationPosition(sentryId, locData)
 	if err != nil {
 		if err == database.ErrNoMatch {
 			c.JSON(http.StatusNotFound, "Error: Resource not found")

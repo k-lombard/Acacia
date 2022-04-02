@@ -10,43 +10,41 @@ import (
 	"github.com/k-lombard/Acacia/AcaciaApi/models"
 )
 
-var userIDKey = "userID"
-
-func (r routes) users(rg *gin.RouterGroup) {
-	rg.GET("/", getAllUsers)
-	rg.POST("/", addUser)
-	rg.GET("/:userid", getUserById)
-	rg.PUT("/:userid", updateUser)
-	rg.DELETE("/:userid", deleteUser)
+func (r routes) sentries(rg *gin.RouterGroup) {
+	rg.GET("/", getAllSentries)
+	rg.POST("/", addSentry)
+	rg.GET("/:id", getSentryById)
+	rg.PUT("/:id", updateSentry)
+	rg.DELETE("/:id", deleteSentry)
 }
 
-func addUser(c *gin.Context) {
-	user := &models.User{}
+func addSentry(c *gin.Context) {
+	sentry := &models.Sentry{}
 	r := c.Request
-	if err := render.Bind(r, user); err != nil {
+	if err := render.Bind(r, sentry); err != nil {
 		c.JSON(http.StatusBadRequest, "Error: Bad request")
 		return
 	}
-	userOut, err := dbInstance.AddUser(user)
+	sentryOut, err := dbInstance.AddSentry(sentry)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, "Error: Bad request")
 		return
 	}
-	c.JSON(http.StatusOK, userOut)
+	c.JSON(http.StatusOK, sentryOut)
 }
 
-func getAllUsers(c *gin.Context) {
-	users, err := dbInstance.GetAllUsers()
+func getAllSentries(c *gin.Context) {
+	sentries, err := dbInstance.GetAllSentries()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, "Internal Server Error")
 		return
 	}
-	c.JSON(http.StatusOK, users)
+	c.JSON(http.StatusOK, sentries)
 }
 
-func getUserById(c *gin.Context) {
-	userID := uuid.MustParse(c.Param("userid"))
-	user, err := dbInstance.GetUserById(userID)
+func getSentryById(c *gin.Context) {
+	sentryID := uuid.MustParse(c.Param("id"))
+	sentry, err := dbInstance.GetSentryById(sentryID)
 	if err != nil {
 		if err == database.ErrNoMatch {
 			c.JSON(http.StatusNotFound, "Error: Resource not found")
@@ -55,12 +53,12 @@ func getUserById(c *gin.Context) {
 		}
 		return
 	}
-	c.JSON(http.StatusOK, user)
+	c.JSON(http.StatusOK, sentry)
 }
 
-func deleteUser(c *gin.Context) {
-	userId := uuid.MustParse(c.Param("userid"))
-	err := dbInstance.DeleteUser(userId)
+func deleteSentry(c *gin.Context) {
+	sentryId := uuid.MustParse(c.Param("id"))
+	err := dbInstance.DeleteSentry(sentryId)
 	if err != nil {
 		if err == database.ErrNoMatch {
 			c.JSON(http.StatusNotFound, "Error: Resource not found")
@@ -69,17 +67,17 @@ func deleteUser(c *gin.Context) {
 		}
 		return
 	}
-	c.JSON(http.StatusOK, userId)
+	c.JSON(http.StatusOK, sentryId)
 }
-func updateUser(c *gin.Context) {
+func updateSentry(c *gin.Context) {
 	r := c.Request
-	userId := uuid.MustParse(c.Param("userid"))
-	userData := models.User{}
-	if err := render.Bind(r, &userData); err != nil {
+	sentryId := uuid.MustParse(c.Param("id"))
+	sentryData := models.Sentry{}
+	if err := render.Bind(r, &sentryData); err != nil {
 		c.JSON(http.StatusBadRequest, "Error: Bad request")
 		return
 	}
-	user, err := dbInstance.UpdateUser(userId, userData)
+	sentry, err := dbInstance.UpdateSentry(sentryId, sentryData)
 	if err != nil {
 		if err == database.ErrNoMatch {
 			c.JSON(http.StatusNotFound, "Error: Resource not found")
@@ -88,5 +86,5 @@ func updateUser(c *gin.Context) {
 		}
 		return
 	}
-	c.JSON(http.StatusOK, user)
+	c.JSON(http.StatusOK, sentry)
 }

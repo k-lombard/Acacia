@@ -26,7 +26,7 @@ var ErrSameUser = fmt.Errorf("Error: two users are the same")
 
 func InitializeDatabase(username, password, database string) (Database, error) {
 	db := Database{}
-	dsn := "postgres://user:password@db/tutorcare_core?sslmode=disable"
+	dsn := "postgres://user:password@db/acacia?sslmode=disable"
 	conn, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		return db, err
