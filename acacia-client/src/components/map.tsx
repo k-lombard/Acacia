@@ -46,7 +46,8 @@ export default function LayeredMap({data}) {
     <DeckGL
       initialViewState={INITIAL_VIEW_STATE}
       controller={true}
-      layers={layer}  
+      layers={layer}
+      getTooltip={({object}) => object && `${object.name}\n${object.address}`} 
     >
       <Map
           style={{width: '100vw', height: '100vh'}}

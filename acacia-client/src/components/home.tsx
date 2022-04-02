@@ -27,7 +27,7 @@ export default function Acacia(this: any) {
     dispatch(setLoading(true))  
   }
 
-  const data = [{name: 'Klaus', address: '266 Ferst Dr NW, Atlanta, GA 30332', exits: 4214, coordinates: [ -84.39579759751776,33.77715462850155]}];
+  const data = [{name: 'Klaus College of Computing', address: '266 Ferst Dr NW, Atlanta, GA 30332', exits: 4214, coordinates: [ -84.39579759751776,33.77715462850155]}];
 
   return (
     <div>
