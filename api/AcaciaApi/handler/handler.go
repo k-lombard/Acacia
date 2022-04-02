@@ -68,13 +68,5 @@ func RouteHandler(db database.Database, m *melody.Melody) *gin.Engine {
 	r.geolocationpositions(geolocationpositions)
 	sentries := api.Group("/sentries")
 	r.sentries(sentries)
-	// signup := api.Group("/signup")
-	// r.signup(signup)
-	// login := api.Group("/login")
-	// r.login(login)
-	// logout := api.Group("/logout", TokenAuthMiddleware())
-	// r.logout(logout)
-	// token := api.Group("/token")
-	// r.token(token)
 	return r.router
 }
