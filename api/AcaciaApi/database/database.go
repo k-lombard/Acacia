@@ -3,7 +3,9 @@ package database
 import (
 	"fmt"
 	"log"
+	"os"
 
+	_ "github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/dialers/postgres"
 	_ "github.com/lib/pq"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -24,8 +26,13 @@ var ErrDuplicate = fmt.Errorf("Error: table record already exists")
 
 func InitializeDatabase(username, password, database string) (Database, error) {
 	db := Database{}
-	dsn := "postgres://user:password@db/acacia?sslmode=disable"
-	conn, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	instanceConnection := os.Getenv("INSTANCE")
+	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=disable",
+		instanceConnection,
+		username,
+		password,
+		database)
+	conn, err := gorm.Open(postgres.New(postgres.Config{DriverName: "cloudsqlpostgres", DSN: dsn}), &gorm.Config{})
 	if err != nil {
 		return db, err
 	}
