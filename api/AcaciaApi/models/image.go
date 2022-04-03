@@ -19,8 +19,8 @@ type ImageList struct {
 }
 
 func (i *Image) Bind(r *http.Request) error {
-	if i.Content == nil {
-		return fmt.Errorf("Email and password are required fields.")
+	if i.Content == nil || i.SentryID.String() == "" {
+		return fmt.Errorf("Content is a required field.")
 	}
 	return nil
 }

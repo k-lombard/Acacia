@@ -1,0 +1,8 @@
+runtime: go116  # or another supported version
+
+instance_class: F2a
+
+handlers:
+- url: /.*
+  script: auto
+

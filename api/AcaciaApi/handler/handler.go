@@ -68,5 +68,7 @@ func RouteHandler(db database.Database, m *melody.Melody) *gin.Engine {
 	r.geolocationpositions(geolocationpositions)
 	sentries := api.Group("/sentries")
 	r.sentries(sentries)
+	images := api.Group("/images")
+	r.images(images)
 	return r.router
 }

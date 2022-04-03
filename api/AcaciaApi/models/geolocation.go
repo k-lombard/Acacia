@@ -27,7 +27,7 @@ type GeolocationPositionList struct {
 
 func (i *GeolocationPosition) Bind(r *http.Request) error {
 	if i.Latitude == 0 || i.Longitude == 0 || (i.SentryID).String() == "" {
-		return fmt.Errorf("Accuracy, latitude, longitude, and id are required fields.")
+		return fmt.Errorf("Accuracy, latitude, longitude, and sentry id are required fields.")
 	}
 	return nil
 }

@@ -32,8 +32,8 @@ type SentryList struct {
 }
 
 func (i *Sentry) Bind(r *http.Request) error {
-	if i.ID.String() == "" {
-		return fmt.Errorf("Email and password are required fields.")
+	if i.Alias == "" {
+		return fmt.Errorf("Alias is a required field.")
 	}
 	return nil
 }
