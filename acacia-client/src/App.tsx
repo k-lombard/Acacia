@@ -10,17 +10,12 @@ import store from './store/store';
 import { ChakraProvider } from '@chakra-ui/react'
 const persistor = persistStore(store);
 
-const data = [{name: 'Klaus College of Computing', address: '266 Ferst Dr NW, Atlanta, GA 30332', exits: 4214, coordinates: [ -84.39579759751776,33.77715462850155]}];
 
 function App() {
   return (
     <div className="App">
-      test
       <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
           <Acacia/>
-          <LayeredMap data={data}/>
-        </PersistGate>
       </Provider>
     </div>
   );

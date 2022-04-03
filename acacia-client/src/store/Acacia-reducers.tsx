@@ -1,7 +1,6 @@
 import { AcaciaState } from "./Acacia-types";
 import { AcaciaActionTypes } from "./Acacia-types";
 import { SET_CURRENT_IMAGES } from "./Acacia-types";
-import { getAPODDefault } from "./Acacia-actions";
 import { SET_LOADING } from "./Acacia-types";
 import { SET_LIKES } from "./Acacia-types";
 import { PURGE } from 'redux-persist';

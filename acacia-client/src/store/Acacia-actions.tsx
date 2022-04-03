@@ -15,27 +15,36 @@ import { SetCopyLikesAction } from './Acacia-types'
 import { SetLikeDictAction } from './Acacia-types'
 import { SET_LIKE_DICT } from './Acacia-types'
 
-export function getAPODRange(startDate: Date, endDate: Date): ThunkAction<Promise<any>, {}, {}, AnyAction> {
+export function getAllSentries(): ThunkAction<Promise<any>, {}, {}, AnyAction> {
+    const requestOptions = {
+        method: 'GET',
+        headers: new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json'}),
+        
+    };
     return async (): Promise<any> => {
-        return fetch(`https://api.nasa.gov/planetary/apod?api_key=gNEZW89Uix8qJaVbIEzoUv8wa5gFsweJ2rinS7So&start_date=${startDate}&end_date=${endDate}`).then(
-            res => {
-                return Promise.resolve(res)
-            }
-        ).catch(err => {
-            return Promise.reject(new Error(err.response.data))
-        })
-    }
-}
-
-
-export function getAPODDefault(): ThunkAction<Promise<any>, {}, {}, AnyAction> {
-    return async (): Promise<any> => {
-        return fetch(`https://api.nasa.gov/planetary/apod?api_key=gNEZW89Uix8qJaVbIEzoUv8wa5gFsweJ2rinS7So&count=100`).then(
+        return fetch(`/api/sentries`, requestOptions).then(
             res => {
                 return Promise.resolve(res.json())
             }
         ).catch(err => {
-            return Promise.reject(new Error(err.response.data))
+            return Promise.reject(err)
+        })
+    }
+}
+
+export function getImagesBySentryId(sentry_id: string): ThunkAction<Promise<any>, {}, {}, AnyAction> {
+    const requestOptions = {
+        method: 'GET',
+        headers: new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json', 'Access-Control-Allow-Credentials': 'true', "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT", "Access-Control-Allow-Headers": "Access-Control-Allow-Headers, Origin, X-Requested-With, Content-Type, Accept, Authorization"}),
+        
+    };
+    return async (): Promise<any> => {
+        return fetch(`/api/images/sentry/${sentry_id}`, requestOptions).then(
+            res => {
+                return Promise.resolve(res.json())
+            }
+        ).catch(err => {
+            return Promise.reject(new Error(err))
         })
     }
 }
