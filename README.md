@@ -4,7 +4,8 @@
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 ![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=material-ui&logoColor=white)
 ![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white)
-# An application using computer vision on sentry towers to protect natural resources.
+![React.js](https://img.shields.io/badge/-ReactJs-61DAFB?logo=react)
+## An application using computer vision on sentry towers to protect natural resources.
 ![GitHub top language](https://img.shields.io/github/languages/top/k-lombard/TutorCare)
 
 
