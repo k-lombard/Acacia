@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@chakra-ui/core": "^0.8.0",
     "@chakra-ui/react": "^1.8.7",
     "@deck.gl/react": "^8.7.3",
     "@emotion/react": "^11.8.2",
